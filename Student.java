@@ -1,0 +1,129 @@
+/*
+ * Name: Anthony Chu
+ * Email: abc004@ucsd.edu
+ * PID: A17496679
+ * Sources Used: Non
+ *
+ * The file gathered the methods to 
+ * implement the Student class
+ */
+
+import java.util.Objects;
+
+/**
+ * Implementation of Student comparable class
+ * A class with Student object's method
+ */
+public class Student implements Comparable<Student> {
+    private final String firstName; 
+    //A string representing the first name of the student.
+    private final String lastName; 
+    //A string representing the last name of the student.
+    private final String PID; 
+    //A string representing the PID of the student. This is unique for each student.
+
+    /**
+     * Constructor Initialize the student’s information.
+     * 
+     * @param firstName Student firstName
+     * @param lastName  Student lastName
+     * @param PID       Student PID
+     */
+    public Student(String firstName, String lastName, String PID) {
+        if (firstName == null || lastName == null || PID == null) {
+            throw new IllegalArgumentException();
+        }
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.PID = PID;
+    }
+
+    /**
+     * Return the student’s first name
+     * 
+     * @return student’s first name
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * Return the student’s last name
+
+     * 
+     * @return student’s last name
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Return the student’s PID
+     * 
+     * @return student’s PID
+     */
+    public String getPID() {
+        return PID;
+    }
+
+    /**
+     * Check if all three ariables of the current Student object are equal
+     * 
+     * @param o the comparing Student 
+     * @return true or false if two Students are equals
+     */
+    public boolean equals(Object o) {
+        // if (o != null && o instanceof Student) {
+        //     Student os = (Student) o;
+        //     if (os.getFirstName().equals(firstName)
+        //             && os.getLastName().equals(lastName)
+        //             && os.getPID().equals(PID)) {
+        //         return true;
+        //     }
+        // }
+
+        if (o!=null){
+            if (o instanceof Student){
+                Student thisStudent=(Student) o;
+                if (thisStudent.getFirstName().equals(this.getFirstName()) && 
+                thisStudent.getLastName().equals(this.getLastName()) && 
+                thisStudent.getPID().equals(this.getPID())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * The hash function should generate a hash value in 
+     * the order of the student’s firstName, lastName, and PID.
+     * 
+     * @return student’s firstName, lastName, and PID that is
+     * generated
+     */
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, PID);
+    }
+
+    /**
+     * Compare this with another Student in the order of 
+     * lastName, firstName, and PID, using String::compareTo
+     * 
+     * @param o the comparing Student
+     * @return result of comparing
+     */
+    public int compareTo(Student o) {
+        if (o == null) {
+            throw new NullPointerException();
+        }
+        Student thisStudent = (Student) o;
+        if (thisStudent.getLastName().compareTo(this.getLastName()) == 0) {
+            if (thisStudent.getFirstName().compareTo(this.getFirstName()) == 0) {
+                return this.getPID().compareTo(thisStudent.getPID());
+            }
+            return this.getFirstName().compareTo(thisStudent.getFirstName());
+        }
+        return this.getLastName().compareTo(thisStudent.getLastName());
+    }
+}
